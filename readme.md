@@ -6,7 +6,7 @@ Repo ini berisi beberapa functionality shortcut untuk integrasi IoT ke dalam SIP
 
 ## Syarat Sah Makan Ketoprak
 
-Biar bisa pake nih program, sampeyan harus provide 1 file wajib 'ain, yaitu kerupuk. Caranya:
+Biar bisa pake nih program, sampeyan harus provide 1 file wajib 'ain, yaitu kredensial. Caranya:
 
 1. Bikin file namanya bebas, misal aja `kerupuk.txt`
 2. Isinya apa aja mint? Nah, isinya buat baris pertama copas `Cookies` dari Jumpcloud ente dan baris kedua copas `Bearer Token` dari SIPGN (tanpa prefix Bearer)
