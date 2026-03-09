@@ -17,11 +17,10 @@ async function checkStatusJCBySPPGName(rl, cookie) {
 
 async function checkStatusJCBulk(rl, exeDir, cookie) {
   try {
-    const credentialsFile = await rl.question(
+    const sppgFile = await rl.question(
       'Masukkan nama file SPPG (Enter untuk "sppg.txt"): ',
     );
-    const sppgFileName =
-      credentialsFile.trim() === "" ? "sppg.txt" : credentialsFile;
+    const sppgFileName = sppgFile.trim() === "" ? "sppg.txt" : sppgFile;
     const fileDir = join(exeDir, sppgFileName);
 
     const sppg = await readFile(fileDir, "utf-8");
@@ -66,10 +65,10 @@ async function main() {
     const exeDir = dirname(execPath);
 
     const credentialsFile = await rl.question(
-      '\nMasukkan nama file kredensial (Enter untuk "credentials.txt"): ',
+      '\nMasukkan nama file kredensial (Enter untuk "kerupuk.txt"): ',
     );
     const fileName =
-      credentialsFile.trim() === "" ? "credentials.txt" : credentialsFile;
+      credentialsFile.trim() === "" ? "kerupuk.txt" : credentialsFile;
     const fileDir = join(exeDir, fileName);
 
     while (true) {
