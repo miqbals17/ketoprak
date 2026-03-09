@@ -2,7 +2,7 @@ import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
-import { getStatusJumpcloud } from "./utils/services";
+import { getStatusJumpcloud } from "./utils/services.js";
 
 async function checkStatusJCBySPPGName(rl, cookie) {
   try {
