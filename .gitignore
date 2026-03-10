@@ -1,4 +1,5 @@
 ketoprak-mac
+.DS_Store
 
 *.bun-build
 *.txt

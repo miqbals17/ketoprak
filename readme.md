@@ -2,13 +2,20 @@
 
 Repo ini berisi beberapa functionality shortcut untuk integrasi IoT ke dalam SIPGN.
 
-**🔗 Download file hasil build di:** https://github.com/miqbals17/ketoprak/raw/refs/heads/main/ketoprak-win.exe
+**🔗 Download Build File di:** https://github.com/miqbals17/ketoprak/raw/refs/heads/main/ketoprak-win.exe
 
 ## Syarat Sah Makan Ketoprak
 
 Biar bisa pake nih program, sampeyan harus provide 1 file wajib 'ain, yaitu kredensial. Caranya:
 
-1. Bikin file namanya bebas, misal aja `kerupuk.txt`
+1. Bikin file namanya bebas, misal aja `kerupuk.txt` dan harus lokasinya harus setara sama file executablenya (`ketoprak-win.exe`)
+
+```
+.
+├── ketoprak-win.exe
+└── kerupuk.txt
+```
+
 2. Isinya apa aja mint? Nah, isinya buat baris pertama copas `Cookies` dari Jumpcloud ente dan baris kedua copas `Bearer Token` dari SIPGN (tanpa prefix Bearer)
 3. Nih contohnya kek gini ntar
 
@@ -21,7 +28,11 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ2.eyJlEHAiOjE3NzMwOTU4MjIsInJvbGUiOiJzdXBlcmF
 
 ## Petunjuk Makan Ketoprak
 
-Jangan lupa, buka file sesuai OS saudara, kalau `Windows` pakai `ketoprak-win.exe`, kalau `Macbook` pakai `ketoprak-mac`.
+User `Windows` bisa langsung nikmatin dengan download build file di link diatas. Tapi kalau user `Mac` harus ngracik manual di local yee, stepnya:
+
+1. Clone repo ini
+2. Buat buildnya pake runtime `Bun`
+3. Jalanin `bun build ./index.js --compile --target=bun-darwin-arm64 --outfile=ketoprak-mac`
 
 ### Beberapa opsi yang disupport:
 
@@ -34,7 +45,7 @@ Tinggal masukin nama SPPG di terminalnya, ntar muncul Online ato Offline JC-nya
 Opsi 2 ini perlu ada file yang isinya daftar SPPG yang mau dicek. Kayak gimana filenya mint? Gini:
 
 1. Bikin file yang isinya daftar SPPG yang dipisahin pake `Enter`, misal `sppg.txt`
-2. Lokasi file ini harus setara sama file executablenya (`ketoprak-win.exe`/`ketoprak-mac`)
+2. Lokasi file ini harus setara sama file executablenya (`ketoprak-win.exe`)
 
 ```
 .
