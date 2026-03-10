@@ -100,7 +100,7 @@ export async function getSppgData(sppgCode, token) {
 
 export async function editSppg(token, sppgCode, edgeDeviceData) {
   try {
-    if (Object.keys(edgeDeviceData).length === 0) {
+    if (edgeDeviceData.edge_devices.length === 0) {
       console.log(
         `❌ Failed - Edit SPPG ${sppgCode} (Edge device belum dibuat)`,
       );

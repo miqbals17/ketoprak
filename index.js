@@ -89,7 +89,18 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
 
     // Reset RTSP
     const resetRtspSppgPayload = sppgDataList.map((sppgData) => {
-      if (sppgData.edge_devices.length === 0) return {};
+      if (sppgData.edge_devices.length === 0)
+        return {
+          code: sppgData.code,
+          name: sppgData.name,
+          province_id: sppgData.province.id,
+          city_id: sppgData.city.id,
+          district_id: sppgData.district.id,
+          sub_district_id: sppgData.sub_district.id,
+          edge_devices: [],
+          head_id: null,
+          streaming_url: null,
+        };
 
       const cameras = [
         {
@@ -149,7 +160,18 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
     ];
 
     const mapRtspSppgPayload = sppgDataList2.map((sppgData, index) => {
-      if (sppgData.edge_devices.length === 0) return {};
+      if (sppgData.edge_devices.length === 0)
+        return {
+          code: sppgData.code,
+          name: sppgData.name,
+          province_id: sppgData.province.id,
+          city_id: sppgData.city.id,
+          district_id: sppgData.district.id,
+          sub_district_id: sppgData.sub_district.id,
+          edge_devices: [],
+          head_id: null,
+          streaming_url: null,
+        };
 
       const cameras = ipList2D[index].map((ipCctv, cameraIndex) => {
         if (cameraIndex === 0) {
