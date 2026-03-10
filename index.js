@@ -75,14 +75,6 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
       throw new Error("Jumlah baris IP dan SPPG tidak sama!");
     }
 
-    const cctvOrder = [
-      "masak",
-      "pemorsian",
-      "persiapan_masak",
-      "gudang",
-      "tempat_cuci",
-    ];
-
     console.log("\nProses Sync SPPG...");
 
     const syncSppgFunc = sppgList.map((sppgCode) => {
@@ -141,63 +133,77 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
     });
     await Promise.all(resetRtspSppgFunc);
 
-    //Mapping RTSP
-    // const mapRtspSppgPayload = sppgDataList.map((sppgData, index) => {
-    //   if (sppgData.edge_devices.length === 0) return {};
+    // Get RTSP data again
+    const getDataSppgFunc2 = sppgList.map((sppgCode) => {
+      return getSppgData(sppgCode, token);
+    });
+    const sppgDataList2 = await Promise.all(getDataSppgFunc2);
 
-    //   const cameras = ipList2D[index].map((ipList, cameraIndex) => {
-    //     if (cameraIndex === 0) {
-    //       return {
-    //         id: sppgData.edge_devices[0].cameras[0].id,
-    //         name: cctvOrder[index],
-    //         types: ["apd"],
-    //         threshold: 0.5,
-    //         start_time: "00:00",
-    //         end_time: "23:00",
-    //         timezone: "Asia/Jakarta",
-    //         rtsp_url: ipList2D[index][cameraIndex],
-    //       };
-    //     } else {
-    //       return {
-    //         name: cctvOrder[cameraIndex],
-    //         types: [],
-    //         threshold: 0.5,
-    //         start_time: "00:00",
-    //         end_time: "23:00",
-    //         timezone: "Asia/Jakarta",
-    //         rtsp_url: ipList2D[index][cameraIndex],
-    //       };
-    //     }
-    //   });
+    // Mapping RTSP
+    const cctvOrder = [
+      "masak",
+      "pemorsian",
+      "persiapan_masak",
+      "gudang",
+      "tempat_cuci",
+    ];
 
-    //   const edgeDevices = [
-    //     {
-    //       id: sppgData.edge_devices[0].id,
-    //       name: sppgData.edge_devices[0].name,
-    //       cameras,
-    //     },
-    //   ];
+    const mapRtspSppgPayload = sppgDataList2.map((sppgData, index) => {
+      if (sppgData.edge_devices.length === 0) return {};
 
-    //   return {
-    //     code: sppgData.code,
-    //     name: sppgData.name,
-    //     province_id: sppgData.province.id,
-    //     city_id: sppgData.city.id,
-    //     district_id: sppgData.district.id,
-    //     sub_district_id: sppgData.sub_district.id,
-    //     edge_devices: edgeDevices,
-    //     head_id: null,
-    //     streaming_url: null,
-    //   };
-    // });
+      const cameras = ipList2D[index].map((ipCctv, cameraIndex) => {
+        if (cameraIndex === 0) {
+          return {
+            id: sppgData.edge_devices[0].cameras[0].id,
+            name: cctvOrder[cameraIndex],
+            types: ["apd"],
+            threshold: 0.5,
+            start_time: "00:00",
+            end_time: "23:00",
+            timezone: "Asia/Jakarta",
+            rtsp_url: ipCctv ?? "rtsp://",
+          };
+        } else {
+          return {
+            name: cctvOrder[cameraIndex],
+            types: [],
+            threshold: 0.5,
+            start_time: "00:00",
+            end_time: "23:00",
+            timezone: "Asia/Jakarta",
+            rtsp_url: ipCctv ?? "rtsp://",
+          };
+        }
+      });
 
-    // console.log("\nProses Mapping RTSP SPPG...");
+      const edgeDevices = [
+        {
+          id: sppgData.edge_devices[0].id,
+          name: sppgData.edge_devices[0].name,
+          cameras,
+        },
+      ];
 
-    // const mapRtspSppgFunc = mapRtspSppgPayload.map((sppgPayload) => {
-    //   const { code, ...payload } = sppgPayload;
-    //   return editSppg(token, code, payload);
-    // });
-    // await Promise.all(mapRtspSppgFunc);
+      return {
+        code: sppgData.code,
+        name: sppgData.name,
+        province_id: sppgData.province.id,
+        city_id: sppgData.city.id,
+        district_id: sppgData.district.id,
+        sub_district_id: sppgData.sub_district.id,
+        edge_devices: edgeDevices,
+        head_id: null,
+        streaming_url: null,
+      };
+    });
+
+    console.log("\nProses Mapping RTSP SPPG...");
+
+    const mapRtspSppgFunc = mapRtspSppgPayload.map((sppgPayload) => {
+      const { code, ...payload } = sppgPayload;
+      return editSppg(token, code, payload);
+    });
+    await Promise.all(mapRtspSppgFunc);
   } catch (error) {
     throw error;
   }
