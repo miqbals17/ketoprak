@@ -135,3 +135,40 @@ export async function editSppg(token, sppgCode, edgeDeviceData) {
     throw error;
   }
 }
+
+export async function getStatusPemantauanCctv(sppgCode, token) {
+  try {
+    const URL = `https://sipgn-api.bgn.go.id/api/v1/sipai-dashboard/sppg-connected?has_streaming=true&search=${sppgCode}`;
+
+    const response = await fetch(URL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    switch (response.status) {
+      case 401:
+        throw new Error("Token SIPGN tidak valid!");
+      case 409:
+        throw new Error("Conflict!");
+      case 419:
+        throw new Error("Token SIPGN telah expired!");
+    }
+
+    const { data } = await response.json();
+    const { items } = data;
+
+    if (items.length === 0) {
+      console.log(`❌ ${sppgCode} - Belum muncul di Pemantauan`);
+      return;
+    }
+
+    console.log(`✅ ${sppgCode} - Muncul di Pemantauan`);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

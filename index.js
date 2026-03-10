@@ -6,6 +6,7 @@ import {
   editSppg,
   getSppgData,
   getStatusJumpcloud,
+  getStatusPemantauanCctv,
   syncSppg,
 } from "./utils/services.js";
 
@@ -43,6 +44,37 @@ async function checkStatusJCBulk(rl, exeDir, cookie) {
     console.log(
       `\nOnline: ${sppgOnline.length}, Offline: ${sppgOffline.length}`,
     );
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function checkPemantauanCctvBySPPGName(rl, token) {
+  try {
+    const sppgCode = await rl.question("Masukkan kode SPPG: ");
+    console.log("\nSedang mengecek Pemantauan CCTV...");
+
+    await getStatusPemantauanCctv(sppgCode, token);
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function checkPemantauanCctvBulk(rl, exeDir, token) {
+  try {
+    const sppgFile = await rl.question(
+      'Masukkan nama file daftar Kode SPPG (Enter untuk "sppg-code.txt"): ',
+    );
+    const sppgFileName = sppgFile.trim() === "" ? "sppg-code.txt" : sppgFile;
+    const sppgFileDir = join(exeDir, sppgFileName);
+
+    const sppg = await readFile(sppgFileDir, "utf-8");
+    const sppgList = sppg.split("\n");
+
+    const syncSppgFunc = sppgList.map((sppgCode) => {
+      return getStatusPemantauanCctv(sppgCode, token);
+    });
+    await Promise.all(syncSppgFunc);
   } catch (error) {
     throw error;
   }
@@ -265,7 +297,9 @@ async function main() {
 Opsi Program:
 1. Cek Status JC by SPPG Name
 2. Cek Status JC Bulk
-3. Mapping RTSP ke SIPGN (Beta)
+3. Cek Pemantauan CCTV by SPPG Name
+4. Cek Pemantauan CCTV Bulk
+5. Mapping RTSP ke SIPGN (Beta)
 `);
 
       const selectedOption = await rl.question("Pilih opsi: ");
@@ -290,6 +324,12 @@ Opsi Program:
             await checkStatusJCBulk(rl, exeDir, cookie);
             break;
           case "3":
+            await checkPemantauanCctvBySPPGName(rl, tokenSipgn);
+            break;
+          case "4":
+            await checkPemantauanCctvBulk(rl, exeDir, tokenSipgn);
+            break;
+          case "5":
             await mappingRTSPToSIPGN(rl, exeDir, tokenSipgn);
             break;
           default:
