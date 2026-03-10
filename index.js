@@ -265,7 +265,7 @@ async function main() {
 Opsi Program:
 1. Cek Status JC by SPPG Name
 2. Cek Status JC Bulk
-3. Mapping RTSP ke SIPGN
+3. Mapping RTSP ke SIPGN (Beta)
 `);
 
       const selectedOption = await rl.question("Pilih opsi: ");
