@@ -2,7 +2,7 @@
 
 Repo ini berisi beberapa functionality shortcut untuk integrasi IoT ke dalam SIPGN.
 
-**🔗 Download Build File di:** https://github.com/miqbals17/ketoprak/raw/refs/heads/main/ketoprak-win.exe
+**🔗 Download Build File di:** https://github.com/miqbals17/ketoprak/releases/download/v1.0.0/ketoprak-win.zip
 
 ## Syarat Sah Makan Ketoprak
 
