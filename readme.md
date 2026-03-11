@@ -49,17 +49,13 @@ Opsi 2 ini perlu ada file yang isinya daftar SPPG yang mau dicek. Kayak gimana f
 
 ```
 .
-├── ketoprak-mac
+├── ketoprak-win.exe
 └── sppg.txt
 ```
 
 3. Contoh isi filenya kek gini
 
 ```
-SPPG-3863 SPPG Pandeglang Koroncong Bangkonol
-Not Found
-SPPG-3656
-SPPG-1418
 SPPG-0708
 SPPG-1820
 SPPG-3472
@@ -67,6 +63,33 @@ SPPG-3472
 
 4. Ntar bakal muncul semua, offline apa online JC-nya.
 
-### 3. Mapping RTSP ke SIPGN (Beta)
+### 3. Cek Pemantauan CCTV by SPPG Code
+
+Tinggal masukin kode SPPG di terminalnya, ntar bakal diinfoin kalo SPPG-nya udah muncul di Pemantauan CCTV atau belum
+
+### 4. Cek Pemantauan CCTV Bulk
+
+Opsi 2 ini perlu ada file yang isinya daftar kode SPPG yang mau dicek ges. Kayak gimana filenya mint? Gini:
+
+1. Bikin file yang isinya daftar SPPG yang dipisahin pake `Enter`, misal `sppg-code.txt`
+2. Lokasi file ini harus setara sama file executablenya (`ketoprak-win.exe`)
+
+```
+.
+├── ketoprak-win.exe
+└── sppg-code.txt
+```
+
+3. Contoh isi filenya kek gini. Dari spreadsheetnya mas Mail, tinggal copas aja kolomnya sampai baris yang pengen dicek
+
+```
+32.75.11.1003.05
+32.75.05.1004.01
+32.75.05.1001.02
+```
+
+4. Ntar bakal muncul semua, yang udah muncul atau belum di Pemantauan CCTV.
+
+### 5. Mapping RTSP ke SIPGN (Beta)
 
 **🏗️ Work In Progress**
