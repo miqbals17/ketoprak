@@ -2,9 +2,9 @@
 
 Repo ini berisi beberapa functionality shortcut untuk integrasi IoT ke dalam SIPGN.
 
-**🔗 Download Build File di:** https://github.com/miqbals17/ketoprak/releases/download/v1.3.0/ketoprak-win.zip
+**🔗 Download Build File di:** https://github.com/miqbals17/ketoprak/releases/download/v1.3.1/ketoprak-win.zip
 
-## Syarat Sah Makan Ketoprak
+## Syarat Sah Makan Ketoprak [Updated 🎉]
 
 Oke ges, sekarang ngga perlu copas-copas `Cookies` dari Jumpcloud sama `Token` dari SIPGN yak. Langsung cus login aja pake akun masing-masing
 
