@@ -15,7 +15,12 @@ async function checkStatusJCBySPPGName(rl, cookie) {
     const sppgName = await rl.question("Masukkan nama SPPG: ");
     console.log(`Mencari status JC...`);
 
-    await getStatusJumpcloud(sppgName, cookie);
+    const statusJumpcloud = await getStatusJumpcloud(sppgName, cookie);
+
+    const printMessage = statusJumpcloud.isActive
+      ? `✅ Online - ${statusJumpcloud.name}`
+      : `❌ Offline - ${statusJumpcloud.name}`;
+    console.log(printMessage);
   } catch (error) {
     throw error;
   }
@@ -36,8 +41,18 @@ async function checkStatusJCBulk(rl, exeDir, cookie) {
       return getStatusJumpcloud(data, cookie);
     });
 
-    console.log(`Mencari status JC...`);
+    console.log(
+      `Mencari status JC (Irvan Muhandis mintanya harus urut, yaudah deh jadi agak lama ya ges)...\n`,
+    );
     const sppgStatus = await Promise.allSettled(sppgFunc);
+
+    sppgStatus.map((sppg) => {
+      const printMessage = sppg.value.isActive
+        ? `✅ Online - ${sppg.value.name}`
+        : `❌ Offline - ${sppg.value.name}`;
+
+      console.log(printMessage);
+    });
 
     const sppgOnline = sppgStatus.filter((sppg) => sppg.isActive);
     const sppgOffline = sppgStatus.filter((sppg) => !sppg.isActive);
