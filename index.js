@@ -9,6 +9,8 @@ import {
   getStatusPemantauanCctv,
   syncSppg,
 } from "./utils/services.js";
+import { getBearerToken } from "./utils/get-token.js";
+import { getJCCookies } from "./utils/get-cookies.js";
 
 async function checkStatusJCBySPPGName(rl, cookie) {
   try {
@@ -311,12 +313,8 @@ async function main() {
     const execPath = process.execPath;
     const exeDir = dirname(execPath);
 
-    const credentialsFile = await rl.question(
-      '\nMasukkan nama file kredensial (Enter untuk "kerupuk.txt"): ',
-    );
-    const fileName =
-      credentialsFile.trim() === "" ? "kerupuk.txt" : credentialsFile;
-    const fileDir = join(exeDir, fileName);
+    let sipgnToken = "";
+    let cookie = "";
 
     while (true) {
       console.log(`
@@ -337,28 +335,57 @@ Opsi Program:
       }
 
       try {
-        const credentials = await readFile(fileDir, "utf-8");
-        const credentialsList = credentials.split("\n");
-
-        const cookie = credentialsList[0];
-        const tokenSipgn = credentialsList[1];
-
         switch (selectedOption) {
-          case "1":
+          case "1": {
+            if (cookie === "") {
+              await rl.question(
+                "\nOm Bekti request nggausah copas-copas Cookie, jadi Login ke Jumpcloud dulu ya... (Tekan ENTER)",
+              );
+              cookie = await getJCCookies();
+            }
             await checkStatusJCBySPPGName(rl, cookie);
             break;
-          case "2":
+          }
+          case "2": {
+            if (cookie === "") {
+              await rl.question(
+                "\nOm Bekti request nggausah copas-copas Cookie, jadi Login ke Jumpcloud dulu ya... (Tekan ENTER)",
+              );
+              cookie = await getJCCookies();
+            }
             await checkStatusJCBulk(rl, exeDir, cookie);
             break;
-          case "3":
-            await checkPemantauanCctvBySPPGName(rl, tokenSipgn);
+          }
+          case "3": {
+            if (sipgnToken === "") {
+              await rl.question(
+                "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
+              );
+              sipgnToken = await getBearerToken();
+            }
+            await checkPemantauanCctvBySPPGName(rl, sipgnToken);
             break;
-          case "4":
-            await checkPemantauanCctvBulk(rl, exeDir, tokenSipgn);
+          }
+          case "4": {
+            if (sipgnToken === "") {
+              await rl.question(
+                "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
+              );
+              sipgnToken = await getBearerToken();
+            }
+            await checkPemantauanCctvBulk(rl, exeDir, sipgnToken);
             break;
-          case "5":
-            await mappingRTSPToSIPGN(rl, exeDir, tokenSipgn);
+          }
+          case "5": {
+            if (sipgnToken === "") {
+              await rl.question(
+                "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
+              );
+              sipgnToken = await getBearerToken();
+            }
+            await mappingRTSPToSIPGN(rl, exeDir, sipgnToken);
             break;
+          }
           default:
             console.log("\nOpsi tidak valid. Silakan pilih opsi yang benar.");
             break;

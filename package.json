@@ -1,0 +1,27 @@
+{
+  "name": "sipgn-ketoprak",
+  "version": "1.0.0",
+  "description": "Repo ini berisi beberapa functionality shortcut untuk integrasi IoT ke dalam SIPGN.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miqbals17/ketoprak.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miqbals17/ketoprak/issues"
+  },
+  "homepage": "https://github.com/miqbals17/ketoprak#readme",
+  "dependencies": {
+    "puppeteer": "^24.39.0"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^5.4.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
