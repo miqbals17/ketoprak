@@ -44,7 +44,7 @@ async function checkStatusJCBulk(rl, exeDir, cookie) {
     console.log(
       `Mencari status JC (Irvan Muhandis mintanya harus urut, yaudah deh jadi agak lama ya ges)...\n`,
     );
-    const sppgStatus = await Promise.allSettled(sppgFunc);
+    const sppgStatus = await Promise.all(sppgFunc);
 
     sppgStatus.map((sppg) => {
       const printMessage = sppg.value.isActive
@@ -89,7 +89,17 @@ async function checkPemantauanCctvBulk(rl, exeDir, token) {
     const syncSppgFunc = sppgList.map((sppgCode) => {
       return getStatusPemantauanCctv(sppgCode, token);
     });
-    await Promise.allSettled(syncSppgFunc);
+    const showPemantauan = await Promise.all(syncSppgFunc);
+
+    console.log(showPemantauan);
+
+    showPemantauan.map((sppg) => {
+      const printMessage = sppg.value.isShow
+        ? `✅ ${sppg.value.sppgCode} - Muncul di Pemantauan`
+        : `❌ ${sppg.value.sppgCode} - Belum muncul di Pemantauan`;
+
+      console.log(printMessage);
+    });
   } catch (error) {
     throw error;
   }
@@ -127,12 +137,12 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
     const syncSppgFunc = sppgList.map((sppgCode) => {
       return syncSppg(sppgCode, token);
     });
-    await Promise.allSettled(syncSppgFunc);
+    await Promise.all(syncSppgFunc);
 
     const getDataSppgFunc = sppgList.map((sppgCode) => {
       return getSppgData(sppgCode, token);
     });
-    const sppgDataList = await Promise.allSettled(getDataSppgFunc);
+    const sppgDataList = await Promise.all(getDataSppgFunc);
 
     // Reset RTSP
     const resetRtspSppgPayload = sppgDataList.map((sppgData) => {
@@ -189,13 +199,13 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
       const { code, ...payload } = sppgPayload;
       return editSppg(token, code, payload);
     });
-    await Promise.allSettled(resetRtspSppgFunc);
+    await Promise.all(resetRtspSppgFunc);
 
     // Get RTSP data again
     const getDataSppgFunc2 = sppgList.map((sppgCode) => {
       return getSppgData(sppgCode, token);
     });
-    const sppgDataList2 = await Promise.allSettled(getDataSppgFunc2);
+    const sppgDataList2 = await Promise.all(getDataSppgFunc2);
 
     // Mapping RTSP
     const cctvOrder = [
@@ -272,7 +282,7 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
       const { code, ...payload } = sppgPayload;
       return editSppg(token, code, payload);
     });
-    await Promise.allSettled(mapRtspSppgFunc);
+    await Promise.all(mapRtspSppgFunc);
   } catch (error) {
     throw error;
   }

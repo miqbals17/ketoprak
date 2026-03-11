@@ -17,7 +17,6 @@ export async function getStatusJumpcloud(sppgName, cookie) {
     const { results } = await response.json();
 
     if (results.length === 0) {
-      // console.log(`❌ Offline - ${sppgName}`);
       return {
         name: sppgName,
         isActive: false,
@@ -25,11 +24,6 @@ export async function getStatusJumpcloud(sppgName, cookie) {
     }
 
     const ubuntuDevice = results.find((result) => result.os === "Ubuntu");
-
-    // const printMessage = ubuntuDevice.active
-    //   ? `✅ Online - ${ubuntuDevice.displayName}`
-    //   : `❌ Offline - ${ubuntuDevice.displayName}`;
-    // console.log(printMessage);
 
     return {
       name: ubuntuDevice.displayName,
@@ -161,13 +155,16 @@ export async function getStatusPemantauanCctv(sppgCode, token) {
     const { items } = data;
 
     if (items.length === 0) {
-      console.log(`❌ ${sppgCode} - Belum muncul di Pemantauan`);
-      return;
+      return {
+        sppgCode,
+        isShow: false,
+      };
     }
 
-    console.log(`✅ ${sppgCode} - Muncul di Pemantauan`);
-
-    return data;
+    return {
+      sppgCode,
+      isShow: true,
+    };
   } catch (error) {
     throw error;
   }
