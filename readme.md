@@ -49,11 +49,11 @@ SPPG-3472
 
 4. Ntar bakal muncul semua, offline apa online JC-nya.
 
-### 3. Cek Pemantauan CCTV by SPPG Code
+#### 3. Cek Pemantauan CCTV by SPPG Code
 
 Tinggal masukin kode SPPG di terminalnya, ntar bakal diinfoin kalo SPPG-nya udah muncul di Pemantauan CCTV atau belum
 
-### 4. Cek Pemantauan CCTV Bulk
+#### 4. Cek Pemantauan CCTV Bulk
 
 Opsi 2 ini perlu ada file yang isinya daftar kode SPPG yang mau dicek ges. Kayak gimana filenya mint? Gini:
 
