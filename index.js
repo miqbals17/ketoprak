@@ -9,8 +9,8 @@ import {
   getStatusPemantauanCctv,
   syncSppg,
 } from "./utils/services.js";
-import { getBearerToken } from "./utils/get-token.js";
-import { getJCCookies } from "./utils/get-cookies.js";
+import { getTokenSIPGN } from "./utils/getTokenSIPGN.ts";
+import { getCookiesJC } from "./utils/getCookiesJC.ts";
 
 async function checkStatusJCBySPPGName(rl, cookie) {
   try {
@@ -341,7 +341,7 @@ Opsi Program:
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Cookie, jadi Login ke Jumpcloud dulu ya... (Tekan ENTER)",
               );
-              cookie = await getJCCookies();
+              cookie = await getCookiesJC();
             }
             await checkStatusJCBySPPGName(rl, cookie);
             break;
@@ -361,7 +361,7 @@ Opsi Program:
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
-              sipgnToken = await getBearerToken();
+              sipgnToken = await getCookiesJC();
             }
             await checkPemantauanCctvBySPPGName(rl, sipgnToken);
             break;
@@ -371,7 +371,7 @@ Opsi Program:
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
-              sipgnToken = await getBearerToken();
+              sipgnToken = await getCookiesJC();
             }
             await checkPemantauanCctvBulk(rl, exeDir, sipgnToken);
             break;
@@ -381,7 +381,7 @@ Opsi Program:
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
-              sipgnToken = await getBearerToken();
+              sipgnToken = await getCookiesJC();
             }
             await mappingRTSPToSIPGN(rl, exeDir, sipgnToken);
             break;
