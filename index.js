@@ -72,7 +72,12 @@ async function checkPemantauanCctvBySPPGName(rl, token) {
     const sppgCode = await rl.question("Masukkan kode SPPG: ");
     console.log("\nSedang mengecek Pemantauan CCTV...");
 
-    await getStatusPemantauanCctv(sppgCode, token);
+    const statusPemantuanCctv = await getStatusPemantauanCctv(sppgCode, token);
+
+    const printMessage = statusPemantuanCctv.isShow
+      ? `✅ ${statusPemantuanCctv.sppgCode} - Muncul di Pemantauan`
+      : `❌ ${statusPemantuanCctv.sppgCode} - Belum muncul di Pemantauan`;
+    console.log(printMessage);
   } catch (error) {
     throw error;
   }
@@ -351,7 +356,7 @@ Opsi Program:
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Cookie, jadi Login ke Jumpcloud dulu ya... (Tekan ENTER)",
               );
-              cookie = await getJCCookies();
+              cookie = await getCookiesJC();
             }
             await checkStatusJCBulk(rl, exeDir, cookie);
             break;
@@ -361,7 +366,7 @@ Opsi Program:
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
-              sipgnToken = await getCookiesJC();
+              sipgnToken = await getTokenSIPGN();
             }
             await checkPemantauanCctvBySPPGName(rl, sipgnToken);
             break;
@@ -371,7 +376,7 @@ Opsi Program:
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
-              sipgnToken = await getCookiesJC();
+              sipgnToken = await getTokenSIPGN();
             }
             await checkPemantauanCctvBulk(rl, exeDir, sipgnToken);
             break;
@@ -381,7 +386,7 @@ Opsi Program:
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
-              sipgnToken = await getCookiesJC();
+              sipgnToken = await getTokenSIPGN();
             }
             await mappingRTSPToSIPGN(rl, exeDir, sipgnToken);
             break;
