@@ -44,6 +44,7 @@ async function checkStatusJCBulk(rl, exeDir, cookie) {
     console.log(
       `Mencari status JC (Irvan Muhandis mintanya harus urut, yaudah deh jadi agak lama ya ges)...\n`,
     );
+
     const sppgStatus = await Promise.all(sppgFunc);
 
     sppgStatus.map((sppg) => {
@@ -89,6 +90,9 @@ async function checkPemantauanCctvBulk(rl, exeDir, token) {
     const syncSppgFunc = sppgList.map((sppgCode) => {
       return getStatusPemantauanCctv(sppgCode, token);
     });
+
+    console.log(`Mencari status Pemantauan CCTV dulu ya ges ya...\n`);
+
     const showPemantauan = await Promise.all(syncSppgFunc);
 
     showPemantauan.map((sppg) => {
