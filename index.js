@@ -47,9 +47,9 @@ async function checkStatusJCBulk(rl, exeDir, cookie) {
     const sppgStatus = await Promise.all(sppgFunc);
 
     sppgStatus.map((sppg) => {
-      const printMessage = sppg.value.isActive
-        ? `✅ Online - ${sppg.value.name}`
-        : `❌ Offline - ${sppg.value.name}`;
+      const printMessage = sppg.isActive
+        ? `✅ Online - ${sppg.name}`
+        : `❌ Offline - ${sppg.name}`;
 
       console.log(printMessage);
     });
@@ -91,12 +91,10 @@ async function checkPemantauanCctvBulk(rl, exeDir, token) {
     });
     const showPemantauan = await Promise.all(syncSppgFunc);
 
-    console.log(showPemantauan);
-
     showPemantauan.map((sppg) => {
-      const printMessage = sppg.value.isShow
-        ? `✅ ${sppg.value.sppgCode} - Muncul di Pemantauan`
-        : `❌ ${sppg.value.sppgCode} - Belum muncul di Pemantauan`;
+      const printMessage = sppg.isShow
+        ? `✅ ${sppg.sppgCode} - Muncul di Pemantauan`
+        : `❌ ${sppg.sppgCode} - Belum muncul di Pemantauan`;
 
       console.log(printMessage);
     });
