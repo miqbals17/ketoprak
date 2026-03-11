@@ -37,7 +37,7 @@ async function checkStatusJCBulk(rl, exeDir, cookie) {
     });
 
     console.log(`Mencari status JC...`);
-    const sppgStatus = await Promise.all(sppgFunc);
+    const sppgStatus = await Promise.allSettled(sppgFunc);
 
     const sppgOnline = sppgStatus.filter((sppg) => sppg.isActive);
     const sppgOffline = sppgStatus.filter((sppg) => !sppg.isActive);
@@ -74,7 +74,7 @@ async function checkPemantauanCctvBulk(rl, exeDir, token) {
     const syncSppgFunc = sppgList.map((sppgCode) => {
       return getStatusPemantauanCctv(sppgCode, token);
     });
-    await Promise.all(syncSppgFunc);
+    await Promise.allSettled(syncSppgFunc);
   } catch (error) {
     throw error;
   }
@@ -112,12 +112,12 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
     const syncSppgFunc = sppgList.map((sppgCode) => {
       return syncSppg(sppgCode, token);
     });
-    await Promise.all(syncSppgFunc);
+    await Promise.allSettled(syncSppgFunc);
 
     const getDataSppgFunc = sppgList.map((sppgCode) => {
       return getSppgData(sppgCode, token);
     });
-    const sppgDataList = await Promise.all(getDataSppgFunc);
+    const sppgDataList = await Promise.allSettled(getDataSppgFunc);
 
     // Reset RTSP
     const resetRtspSppgPayload = sppgDataList.map((sppgData) => {
@@ -174,13 +174,13 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
       const { code, ...payload } = sppgPayload;
       return editSppg(token, code, payload);
     });
-    await Promise.all(resetRtspSppgFunc);
+    await Promise.allSettled(resetRtspSppgFunc);
 
     // Get RTSP data again
     const getDataSppgFunc2 = sppgList.map((sppgCode) => {
       return getSppgData(sppgCode, token);
     });
-    const sppgDataList2 = await Promise.all(getDataSppgFunc2);
+    const sppgDataList2 = await Promise.allSettled(getDataSppgFunc2);
 
     // Mapping RTSP
     const cctvOrder = [
@@ -257,7 +257,7 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
       const { code, ...payload } = sppgPayload;
       return editSppg(token, code, payload);
     });
-    await Promise.all(mapRtspSppgFunc);
+    await Promise.allSettled(mapRtspSppgFunc);
   } catch (error) {
     throw error;
   }
