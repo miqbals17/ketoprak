@@ -109,6 +109,12 @@ async function checkPemantauanCctvBulk(rl, exeDir, token) {
 
       console.log(printMessage);
     });
+
+    const sppgShow = showPemantauan.filter((sppg) => sppg.isShow);
+    const sppgNotShow = showPemantauan.filter((sppg) => !sppg.isShow);
+    console.log(
+      `\nMuncul: ${sppgShow.length}, Tidak Muncul: ${sppgNotShow.length}`,
+    );
   } catch (error) {
     throw error;
   }
