@@ -329,7 +329,7 @@ Opsi Program:
 2. Cek Status JC Bulk
 3. Cek Pemantauan CCTV by SPPG Name
 4. Cek Pemantauan CCTV Bulk
-5. Mapping RTSP ke SIPGN (Beta)
+5. Mapping RTSP ke SIPGN
 `);
 
       const selectedOption = await rl.question("Pilih opsi: ");
