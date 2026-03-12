@@ -1,12 +1,27 @@
-import puppeteer, { Browser } from 'puppeteer';
-import type { BrowserAuthConfig } from './launchBrowser.interface';
+import puppeteer, { Browser } from "puppeteer";
+import type { BrowserAuthConfig } from "./launchBrowser.interface";
 
-export async function launchBrowserAuth(config: BrowserAuthConfig): Promise<string> {
-  const browser: Browser = await puppeteer.launch({
-    headless: false,
-    defaultViewport: null,
-    args: ["--start-maximized"],
-  });
+export async function launchBrowserAuth(
+  config: BrowserAuthConfig,
+): Promise<string> {
+  let browser: Browser;
+
+  try {
+    browser = await puppeteer.launch({
+      headless: false,
+      defaultViewport: null,
+      args: ["--start-maximized"],
+      channel: "chrome",
+    });
+  } catch (error) {
+    console.log("Chrome tidak ditemukan. Beralih mencoba Microsoft Edge...");
+    browser = await puppeteer.launch({
+      headless: false,
+      defaultViewport: null,
+      args: ["--start-maximized"],
+      channel: "msedge" as any,
+    });
+  }
 
   const page = await browser.newPage();
 
