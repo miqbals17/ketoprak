@@ -12,6 +12,11 @@ import {
 import { getTokenSIPGN } from "./utils/getTokenSIPGN.ts";
 import { getCookiesJC } from "./utils/getCookiesJC.ts";
 import { formatRTSP } from "./utils/utils.ts";
+import {
+  getSession,
+  isAccountFileExists,
+  setSession,
+} from "./utils/getSession.ts";
 
 async function checkStatusJCBySPPGName(rl, cookie) {
   try {
@@ -327,8 +332,9 @@ async function main() {
     const execPath = process.execPath;
     const exeDir = dirname(execPath);
 
-    let sipgnToken = "";
-    let cookie = "";
+    const accountFileExists = await isAccountFileExists(exeDir);
+    if (!accountFileExists)
+      setSession(exeDir, { jcCookie: "", sipgnToken: "" });
 
     while (true) {
       console.log(`
@@ -349,55 +355,91 @@ Opsi Program:
       }
 
       try {
+        const savedSession = await getSession(exeDir);
+
         switch (selectedOption) {
           case "1": {
-            if (cookie === "") {
+            if (!savedSession.jcCookie) {
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Cookie, jadi Login ke Jumpcloud dulu ya... (Tekan ENTER)",
               );
-              cookie = await getCookiesJC();
+              const cookie = await getCookiesJC();
+              await setSession(exeDir, {
+                jcCookie: cookie,
+                sipgnToken: savedSession.sipgnToken,
+              });
+              await checkStatusJCBySPPGName(rl, cookie);
+            } else {
+              await checkStatusJCBySPPGName(rl, savedSession.jcCookie);
             }
-            await checkStatusJCBySPPGName(rl, cookie);
             break;
           }
           case "2": {
-            if (cookie === "") {
+            if (!savedSession.jcCookie) {
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Cookie, jadi Login ke Jumpcloud dulu ya... (Tekan ENTER)",
               );
-              cookie = await getCookiesJC();
+              const cookie = await getCookiesJC();
+              await setSession(exeDir, {
+                jcCookie: cookie,
+                sipgnToken: savedSession.sipgnToken,
+              });
+              await checkStatusJCBulk(rl, exeDir, cookie);
+            } else {
+              await checkStatusJCBulk(rl, exeDir, savedSession.jcCookie);
             }
-            await checkStatusJCBulk(rl, exeDir, cookie);
             break;
           }
           case "3": {
-            if (sipgnToken === "") {
+            if (!savedSession.sipgnToken) {
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
-              sipgnToken = await getTokenSIPGN();
+              const sipgnToken = await getTokenSIPGN();
+              await setSession(exeDir, {
+                jcCookie: savedSession.jcCookie,
+                sipgnToken,
+              });
+              await checkPemantauanCctvBySPPGName(rl, sipgnToken);
+            } else {
+              await checkPemantauanCctvBySPPGName(rl, savedSession.sipgnToken);
             }
-            await checkPemantauanCctvBySPPGName(rl, sipgnToken);
             break;
           }
           case "4": {
-            if (sipgnToken === "") {
+            if (!savedSession.sipgnToken) {
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
-              sipgnToken = await getTokenSIPGN();
+              const sipgnToken = await getTokenSIPGN();
+              await setSession(exeDir, {
+                jcCookie: savedSession.jcCookie,
+                sipgnToken,
+              });
+              await checkPemantauanCctvBulk(rl, exeDir, sipgnToken);
+            } else {
+              await checkPemantauanCctvBulk(
+                rl,
+                exeDir,
+                savedSession.sipgnToken,
+              );
             }
-            await checkPemantauanCctvBulk(rl, exeDir, sipgnToken);
             break;
           }
           case "5": {
-            if (sipgnToken === "") {
+            if (!savedSession.sipgnToken) {
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
-              sipgnToken = await getTokenSIPGN();
+              const sipgnToken = await getTokenSIPGN();
+              await setSession(exeDir, {
+                jcCookie: savedSession.jcCookie,
+                sipgnToken,
+              });
+              await mappingRTSPToSIPGN(rl, exeDir, sipgnToken);
+            } else {
+              await mappingRTSPToSIPGN(rl, exeDir, savedSession.sipgnToken);
             }
-            await mappingRTSPToSIPGN(rl, exeDir, sipgnToken);
             break;
           }
           default:
