@@ -1,5 +1,7 @@
 node_modules
 ketoprak-mac
+data
+
 .DS_Store
 
 *.bun-build
