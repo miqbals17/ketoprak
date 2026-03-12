@@ -11,6 +11,7 @@ import {
 } from "./utils/services.js";
 import { getTokenSIPGN } from "./utils/getTokenSIPGN.ts";
 import { getCookiesJC } from "./utils/getCookiesJC.ts";
+import { formatRTSP } from "./utils/utils.ts";
 
 async function checkStatusJCBySPPGName(rl, cookie) {
   try {
@@ -246,6 +247,8 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
         };
 
       const cameras = ipList2D[index].map((ipCctv, cameraIndex) => {
+        const inputIpCctv = formatRTSP(ipCctv);
+
         if (cameraIndex === 0) {
           return {
             id: sppgData.edge_devices[0].cameras[0].id,
@@ -255,7 +258,7 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
             start_time: "00:00",
             end_time: "23:00",
             timezone: "Asia/Jakarta",
-            rtsp_url: ipCctv ?? "rtsp://",
+            rtsp_url: inputIpCctv,
           };
         } else {
           return {
@@ -265,7 +268,7 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
             start_time: "00:00",
             end_time: "23:00",
             timezone: "Asia/Jakarta",
-            rtsp_url: ipCctv ?? "rtsp://",
+            rtsp_url: inputIpCctv,
           };
         }
       });
