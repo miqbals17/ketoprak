@@ -41,7 +41,45 @@ export async function setSession(exeDir: string, accountData: AccountData) {
       JSON.stringify(accountData, null, 2),
       "utf-8",
     );
-  } catch (err) {
-    throw err;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function checkSipgnTokenSession(token: string): Promise<boolean> {
+  try {
+    const response = await fetch(
+      "https://sipgn-api.bgn.go.id/api/v1/sipai-dashboard/auth/me",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return response.ok;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function checkJCCookieSession(cookie: string): Promise<boolean> {
+  try {
+    const response = await fetch(
+      "https://console.jumpcloud.com/api/users/getSelf",
+      {
+        method: "GET",
+        headers: {
+          Cookie: cookie,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    await response.json();
+    return true;
+  } catch (error) {
+    return false;
   }
 }

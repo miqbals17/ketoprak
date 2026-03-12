@@ -13,6 +13,8 @@ import { getTokenSIPGN } from "./utils/getTokenSIPGN.ts";
 import { getCookiesJC } from "./utils/getCookiesJC.ts";
 import { formatRTSP } from "./utils/utils.ts";
 import {
+  checkJCCookieSession,
+  checkSipgnTokenSession,
   getSession,
   isAccountFileExists,
   setSession,
@@ -356,10 +358,16 @@ Opsi Program:
 
       try {
         const savedSession = await getSession(exeDir);
+        const isSipgnTokenValid = await checkSipgnTokenSession(
+          savedSession.sipgnToken,
+        );
+        const isJCCookieValid = await checkJCCookieSession(
+          savedSession.jcCookie,
+        );
 
         switch (selectedOption) {
           case "1": {
-            if (!savedSession.jcCookie) {
+            if (!savedSession.jcCookie || !isJCCookieValid) {
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Cookie, jadi Login ke Jumpcloud dulu ya... (Tekan ENTER)",
               );
@@ -375,7 +383,7 @@ Opsi Program:
             break;
           }
           case "2": {
-            if (!savedSession.jcCookie) {
+            if (!savedSession.jcCookie || !isJCCookieValid) {
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Cookie, jadi Login ke Jumpcloud dulu ya... (Tekan ENTER)",
               );
@@ -391,7 +399,7 @@ Opsi Program:
             break;
           }
           case "3": {
-            if (!savedSession.sipgnToken) {
+            if (!savedSession.sipgnToken || !isSipgnTokenValid) {
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
@@ -407,7 +415,7 @@ Opsi Program:
             break;
           }
           case "4": {
-            if (!savedSession.sipgnToken) {
+            if (!savedSession.sipgnToken || !isSipgnTokenValid) {
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
@@ -427,7 +435,7 @@ Opsi Program:
             break;
           }
           case "5": {
-            if (!savedSession.sipgnToken) {
+            if (!savedSession.sipgnToken || !isSipgnTokenValid) {
               await rl.question(
                 "\nOm Bekti request nggausah copas-copas Token, jadi Login ke SIPGN dulu ya... (Tekan ENTER)",
               );
