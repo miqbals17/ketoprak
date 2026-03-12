@@ -98,11 +98,11 @@ Opsi 5 ini perlu ada 2 file yang isinya daftar kode SPPG yang mau dicek da file 
    2. Reset RTSP, which is bikin 1 CCTV dengan kamera `cam-reset`
    3. Mapping RTSP, which is mapping IP CCTV ke Kode SPPG terkait
 
-   > Proses ini bakal running well kalau SPPG di SIPGN-nya itu udah ada Edge Device-nya. Kalau belum bakal gagal, jadi kakak harus bikin dulu langsung di Webnya SIPGN.
-   >
-   > **Kenapa ngga sekalian di script ini aja mint?**
-   >
-   > Jadi gini ges, di SIPGN itu id Edge Device digenerate di frontendnya. Nah ini, jujur ana belum tahu algoritma yang dipake buat generate id-nya. Soon kalau udah tahu, bakal diupdate lagi ya (kalau ngga mager)
+> Proses ini bakal running well kalau SPPG di SIPGN-nya itu udah ada Edge Device-nya. Kalau belum bakal gagal, jadi kakak harus bikin dulu langsung di Webnya SIPGN.
+>
+> **Kenapa ngga sekalian di script ini aja mint?**
+>
+> Jadi gini ges, di SIPGN itu id Edge Device digenerate di frontendnya. Nah ini, jujur ana belum tahu algoritma yang dipake buat generate id-nya. Soon kalau udah tahu, bakal diupdate lagi ya (kalau ngga mager)
 
 5. Jangan lupa ges, khususon opsi 5 ini bakal ngubah data di sistem, ngga cuma read aja. Jadi perlu make sure lagi ya hasilnya
 
