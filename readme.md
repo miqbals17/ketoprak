@@ -8,11 +8,11 @@ Repo ini berisi beberapa functionality shortcut untuk integrasi IoT ke dalam SIP
 >
 > Kalau agan login SIPGN di Ketoprak, halaman SIPGN di browser bakal ketendang ya ges jadi harus checklist concern dan login lagi. Dan kalau agan tetep keukeuh login di browser, token SIPGN di Ketoprak bakal expired jadi harus login lagi di Ketoprak. Nah kalau gini terus, bisa lama-lama akun agan kena rate limit sama sistem SIPGN selama 30 menit
 >
-> Jadi saran hamba, mending kelarin dulu pake Ketoprak ini, kalau kelar baru login lagi di browser dan di double check hasilnya
+> Jadi saran hamba, kalau urusan SIPGN mending kelarin dulu pake Ketoprak ini, kalau kelar baru login lagi di browser dan di double check hasilnya. Sedangkan kalau urusan Jumpcloud mah aman aman aje omke
 
 **🔗 Download Build File di:** https://github.com/miqbals17/ketoprak/releases/download/v1.4.0/ketoprak-win.zip
 
-## Syarat Sah Makan Ketoprak [Updated 🎉]
+## Syarat Sah Makan Ketoprak
 
 Oke ges, sekarang ngga perlu copas-copas `Cookies` dari Jumpcloud sama `Token` dari SIPGN yak. Langsung cus login aja pake akun masing-masing
 
