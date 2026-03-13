@@ -10,7 +10,7 @@ Repo ini berisi beberapa functionality shortcut untuk integrasi IoT ke dalam SIP
 >
 > Jadi saran hamba, kalau urusan SIPGN mending kelarin dulu pake Ketoprak ini, kalau kelar baru login lagi di browser dan di double check hasilnya. Sedangkan kalau urusan Jumpcloud mah aman aman aje omke
 
-**🔗 Download Build File di:** https://github.com/miqbals17/ketoprak/releases/download/v1.4.0/ketoprak-win.zip
+**🔗 Download Build File di:** https://github.com/miqbals17/ketoprak/releases/download/v1.4.1/ketoprak-win.zip
 
 ## Syarat Sah Makan Ketoprak
 
