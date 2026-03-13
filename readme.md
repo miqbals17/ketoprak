@@ -2,6 +2,14 @@
 
 Repo ini berisi beberapa functionality shortcut untuk integrasi IoT ke dalam SIPGN.
 
+> **📝 NOTE BUAT GES GES** (Real no Fake ya ini)
+>
+> Repo ini berkaitan erat dengan Cookie Jumpcloud dan Token SIPGN ya ges, kalau cookie Jumpcloud ini lumayan lama lifetimenya. Sedangkan kalau Token SIPGN ini agak tricky, cuma bisa satu tab yang login dan lifetime-nya lebih cepat
+>
+> Kalau agan login SIPGN di Ketoprak, halaman SIPGN di browser bakal ketendang ya ges jadi harus checklist concern dan login lagi. Dan kalau agan tetep keukeuh login di browser, token SIPGN di Ketoprak bakal expired jadi harus login lagi di Ketoprak. Nah kalau gini terus, bisa lama-lama akun agan kena rate limit sama sistem SIPGN selama 30 menit
+>
+> Jadi saran hamba, mending kelarin dulu pake Ketoprak ini, kalau kelar baru login lagi di browser dan di double check hasilnya
+
 **🔗 Download Build File di:** https://github.com/miqbals17/ketoprak/releases/download/v1.4.0/ketoprak-win.zip
 
 ## Syarat Sah Makan Ketoprak [Updated 🎉]
