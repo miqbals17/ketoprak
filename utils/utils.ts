@@ -6,8 +6,19 @@ export function formatRTSP(
   if (ip === "") return "";
 
   if (ip.startsWith("rtsp://")) {
-    return ip;
+    const sanitizedIp = ip
+      .trim()
+      .replace(/[\r\n\t]/g, "")
+      .replace(/[\x00-\x1F\x7F]/g, "");
+
+    return sanitizedIp;
   }
 
-  return `${prefix}${ip}${suffix}`;
+  const constructRtsp = `${prefix}${ip}${suffix}`;
+  const sanitizedIp = constructRtsp
+    .trim()
+    .replace(/[\r\n\t]/g, "")
+    .replace(/[\x00-\x1F\x7F]/g, "");
+
+  return sanitizedIp;
 }

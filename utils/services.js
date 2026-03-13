@@ -114,15 +114,20 @@ export async function editSppg(token, sppgCode, edgeDeviceData) {
 
     switch (response.status) {
       case 401:
-        throw new Error("Token SIPGN tidak valid!");
+        console.log("Error: Token SIPGN tidak valid!");
+        return;
       case 409:
-        throw new Error("Conflict!");
+        console.log("Error: Conflict!");
+        return;
       case 419:
-        throw new Error("Token SIPGN telah expired!");
+        console.log("Error: Token SIPGN telah expired!");
+        return;
     }
 
-    if (!response.ok || response.status !== 200)
-      throw new Error("Gagal Edit Edge Device!");
+    if (!response.ok || response.status !== 200) {
+      console.log("Error: Gagal Edit Edge Device!");
+      return;
+    }
 
     console.log(`✅ Sukses - Edit SPPG ${sppgCode}`);
   } catch (error) {

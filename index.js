@@ -218,11 +218,10 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
 
     console.log("\nProses Reset RTSP SPPG...");
 
-    const resetRtspSppgFunc = resetRtspSppgPayload.map((sppgPayload) => {
+    for (const sppgPayload of resetRtspSppgPayload) {
       const { code, ...payload } = sppgPayload;
-      return editSppg(token, code, payload);
-    });
-    await Promise.all(resetRtspSppgFunc);
+      await editSppg(token, code, payload);
+    }
 
     // Get RTSP data again
     const getDataSppgFunc2 = sppgList.map((sppgCode) => {
@@ -303,11 +302,10 @@ async function mappingRTSPToSIPGN(rl, exeDir, token) {
 
     console.log("\nProses Mapping RTSP SPPG...");
 
-    const mapRtspSppgFunc = mapRtspSppgPayload.map((sppgPayload) => {
+    for (const sppgPayload of mapRtspSppgPayload) {
       const { code, ...payload } = sppgPayload;
-      return editSppg(token, code, payload);
-    });
-    await Promise.all(mapRtspSppgFunc);
+      await editSppg(token, code, payload);
+    }
   } catch (error) {
     throw error;
   }
