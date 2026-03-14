@@ -171,6 +171,9 @@ export async function getStatusPemantauanCctv(sppgCode, token) {
       isShow: true,
     };
   } catch (error) {
-    throw error;
+    return {
+      sppgCode,
+      isShow: false,
+    };
   }
 }
