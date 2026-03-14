@@ -102,27 +102,19 @@ async function checkPemantauanCctvBulk(rl, exeDir, token) {
     const sppg = await readFile(sppgFileDir, "utf-8");
     const sppgList = sppg.split("\n");
 
-    const syncSppgFunc = sppgList.map((sppgCode) => {
-      return getStatusPemantauanCctv(sppgCode, token);
-    });
-
     console.log(`Mencari status Pemantauan CCTV dulu ya ges ya...\n`);
 
-    const showPemantauan = await Promise.all(syncSppgFunc);
+    for (const sppgCode of sppgList) {
+      const statusPemantuanCctv = await getStatusPemantauanCctv(
+        sppgCode,
+        token,
+      );
 
-    showPemantauan.map((sppg) => {
-      const printMessage = sppg.isShow
-        ? `✅ ${sppg.sppgCode} - Muncul di Pemantauan`
-        : `❌ ${sppg.sppgCode} - Belum muncul di Pemantauan`;
-
+      const printMessage = statusPemantuanCctv.isShow
+        ? `✅ ${statusPemantuanCctv.sppgCode} - Muncul di Pemantauan`
+        : `❌ ${statusPemantuanCctv.sppgCode} - Belum muncul di Pemantauan`;
       console.log(printMessage);
-    });
-
-    const sppgShow = showPemantauan.filter((sppg) => sppg.isShow);
-    const sppgNotShow = showPemantauan.filter((sppg) => !sppg.isShow);
-    console.log(
-      `\nMuncul: ${sppgShow.length}, Tidak Muncul: ${sppgNotShow.length}`,
-    );
+    }
   } catch (error) {
     throw error;
   }
