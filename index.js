@@ -111,9 +111,15 @@ async function checkPemantauanCctvBulk(rl, exeDir, token) {
     const showPemantauan = await Promise.all(syncSppgFunc);
 
     showPemantauan.map((sppg) => {
-      const printMessage = sppg.isShow
-        ? `✅ ${sppg.sppgCode} - Muncul di Pemantauan`
-        : `❌ ${sppg.sppgCode} - Belum muncul di Pemantauan`;
+      let printMessage = "";
+
+      if (sppg.exitCode === 0) {
+        printMessage = `✅ ${sppg.sppgCode} - Muncul di Pemantauan`;
+      } else if (sppg.exitCode === 1) {
+        printMessage = `❌ ${sppg.sppgCode} - Belum muncul di Pemantauan`;
+      } else {
+        printMessage = `⚠️ ${sppg.sppgCode} - Error`;
+      }
 
       console.log(printMessage);
     });

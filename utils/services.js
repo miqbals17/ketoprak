@@ -138,6 +138,9 @@ export async function editSppg(token, sppgCode, edgeDeviceData) {
 export async function getStatusPemantauanCctv(sppgCode, token) {
   try {
     const URL = `https://sipgn-api.bgn.go.id/api/v1/sipai-dashboard/sppg-connected?has_streaming=true&search=${sppgCode}`;
+    const EXIT_CODE_FOUND = 0;
+    const EXIT_CODE_NOT_FOUND = 1;
+    const EXIT_CODE_ERROR = 2;
 
     const response = await fetch(URL, {
       method: "GET",
@@ -163,17 +166,20 @@ export async function getStatusPemantauanCctv(sppgCode, token) {
       return {
         sppgCode,
         isShow: false,
+        exitCode: EXIT_CODE_NOT_FOUND,
       };
     }
 
     return {
       sppgCode,
       isShow: true,
+      exitCode: EXIT_CODE_FOUND,
     };
   } catch (error) {
     return {
       sppgCode,
       isShow: false,
+      exitCode: EXIT_CODE_ERROR,
     };
   }
 }
